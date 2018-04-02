@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Universal Form Checkbox</title>
+</head>
+<body>
+    <h1>Demo</h1>
+    <form action="" method="get" accept-charset="utf-8">
+        <p><input type="text" name="name" placeholder="Name"></p>
+        <p><input type="text" name="name" placeholder="Surname"></p>
+
+        <!-- Universal Form Checkbox -->
+        <p><label><input type="checkbox" name="ufc-terms-and-conditions" value="" data-alert="Por favor, acepte los términos y condiciones de uso.">I have read and accept the <a href="#" target="_blank">terms and conditions</a>.</label></p>
+        <script type="text/javascript">
+            (function() {
+                var defaultAlert = 'Please, read and accept the terms and conditions.';
+                var checkbox = document.querySelector('[name="ufc-terms-and-conditions"]');
+                var form = checkbox.form;
+
+                if (form.addEventListener) {
+                    form.addEventListener('submit', checkTermsAndConditions, false);
+                } else {
+                    form.attachEvent('onsubmit', checkTermsAndConditions);  // Old IE
+                }
+
+                function checkTermsAndConditions(event) {
+                    var message = null;
+
+                    if (!checkbox.checked) {
+                        event.preventDefault();
+
+                        if (checkbox.dataset.alert) {
+                            message = checkbox.dataset.alert;
+                        } else {
+                            message = defaultAlert;
+                        }
+
+                        alert(message);
+                    }
+                }
+            })();
+        </script>
+        <!-- End Universal Form Checkbox -->
+
+        <p><input type="submit" name="submit"></p>
+    </form>
+</body>
+</html>
